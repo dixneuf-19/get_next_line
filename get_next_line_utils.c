@@ -81,17 +81,19 @@ char	*deduce_line(t_buffer *p_start)
 	char		*line;
 	ssize_t		i;
 	ssize_t		j;
+	ssize_t		len;
 	t_buffer	*p_buffer;
 
+	len = count_len(p_start);
 	p_buffer = p_start;
-	line = (char *)malloc(sizeof(char) * (count_len(p_start) + 1));
-	if (!line)
-		return (NULL);
+	line = (char *)malloc(sizeof(char) * (len + 1));
+	if (!line || len == 0)
+		return (free(line), NULL);
 	j = 0;
 	while (p_buffer)
 	{
 		i = 0;
-		while (i < p_buffer->size && j < count_len(p_start))
+		while (i < p_buffer->size && j < len)
 		{
 			line[j] = (p_buffer->buffer)[i];
 			i++;
@@ -99,6 +101,5 @@ char	*deduce_line(t_buffer *p_start)
 		}
 		p_buffer = p_buffer->next;
 	}
-	free_buffers(p_start);
-	return (line);
+	return (free_buffers(p_start), line);
 }

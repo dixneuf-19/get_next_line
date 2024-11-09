@@ -20,7 +20,6 @@ char	*get_next_line(int fd)
 
 	if (fd < 0)
 		return (NULL);
-	p_start = p_buffer;
 	middle = 0;
 	while (!middle++ || check_buffer(p_buffer))
 	{
@@ -34,6 +33,8 @@ char	*get_next_line(int fd)
 		p_buffer->size = read(fd, p_buffer->buffer, BUFFER_SIZE);
 		if (p_buffer->size == -1)
 			return (NULL);
+		if (middle - 1 == 0)
+			p_start = p_buffer;
 		link_buffer(p_start, p_buffer);
 	}
 	return (deduce_line(p_start));
