@@ -5,37 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzary <mzary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 02:58:25 by mzary             #+#    #+#             */
-/*   Updated: 2024/11/08 05:44:09 by mzary            ###   ########.fr       */
+/*   Created: 2024/11/09 18:40:39 by mzary             #+#    #+#             */
+/*   Updated: 2024/11/09 20:00:09 by mzary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+static char	*get_line(int fd, t_buffer *p_surplus)
 {
 	t_buffer	*p_buffer;
-	t_buffer	*p_start;
-	int			middle;
 
+	if (contains_end(p_surplus))
+		return (return_line(p_surplus));
+}
+
+char    *get_next_line(int fd)
+{
+    static t_buffer surplus;
+
+	surplus.next = NULL;
 	if (fd < 0)
 		return (NULL);
-	middle = 0;
-	while (!middle++ || check_buffer(p_buffer))
-	{
-		p_buffer = (t_buffer *)malloc(sizeof(t_buffer));
-		if (!p_buffer)
-		{
-			if (middle)
-				free_buffers(p_start);
-			return (NULL);
-		}
-		p_buffer->size = read(fd, p_buffer->buffer, BUFFER_SIZE);
-		if (p_buffer->size == -1)
-			return (NULL);
-		if (middle - 1 == 0)
-			p_start = p_buffer;
-		link_buffer(p_start, p_buffer);
-	}
-	return (deduce_line(p_start));
+	return (get_line(fd, &surplus));
 }
