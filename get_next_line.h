@@ -6,7 +6,7 @@
 /*   By: mzary <mzary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 18:40:56 by mzary             #+#    #+#             */
-/*   Updated: 2024/11/09 19:32:16 by mzary            ###   ########.fr       */
+/*   Updated: 2024/11/09 21:37:13 by mzary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct  s_buffer
 
 char    *get_next_line(int fd);
 
-
+void	link_buffer(t_buffer *p_surplus, t_buffer *p_buffer);
+char	*return_line(t_buffer *p_surplus);
 
 #endif
