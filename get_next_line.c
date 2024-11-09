@@ -22,7 +22,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	p_start = p_buffer;
 	middle = 0;
-	while (!middle++ || check_buffer(p_buffer->buffer, b_read))
+	while (!middle++ || check_buffer(p_buffer))
 	{
 		p_buffer = (t_buffer *)malloc(sizeof(t_buffer));
 		if (!p_buffer)

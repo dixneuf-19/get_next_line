@@ -12,16 +12,16 @@
 
 #include "get_next_line.h"
 
-int	check_buffer(char buffer[BUFFER_SIZE], ssize_t b_read)
+int	check_buffer(t_buffer *p_buffer)
 {
 	int	i;
 
-	if (b_read < BUFFER_SIZE)
+	if (p_buffer->size < BUFFER_SIZE)
 		return (0);
 	i = 0;
 	while (i < BUFFER_SIZE)
 	{
-		if (buffer[i] == '\n')
+		if ((p_buffer->buffer)[i] == '\n')
 			return (0);
 		i++;
 	}
@@ -52,26 +52,53 @@ void	link_buffer(t_buffer *p_start, t_buffer *p_buffer)
 	}
 }
 
-static ssize_t	count_length(t_buffer *p_start)
+static ssize_t	count_len(t_buffer *p_start)
 {
 	ssize_t	length;
-	int		i;
+	ssize_t	i;
 
 	length = 0;
-	while (p_start)
+	while (p_start->next)
 	{
-		i = 0;
-		while ((p_start->buffer)[i] != '\n')
-			i++;
-		length += i;
+		length += BUFFER_SIZE;
 		p_start = p_start->next;
 	}
-	return (length + 1);
+	while (i < p_start->size)
+	{
+		if ((p_start->buffer)[i] == '\n')
+		{
+			i++;
+			break ;
+		}
+		i++;
+	}
+	length += i;
+	return (length);
 }
 
 char	*deduce_line(t_buffer *p_start)
 {
-	char	*line;
+	char		*line;
+	ssize_t		i;
+	ssize_t		j;
+	t_buffer	*p_buffer;
 
-	line = (char *)malloc;
+	p_buffer = p_start;
+	line = (char *)malloc(sizeof(char) * (count_len(p_start) + 1));
+	if (!line)
+		return (NULL);
+	j = 0;
+	while (p_buffer)
+	{
+		i = 0;
+		while (i < p_buffer->size && j < count_len(p_start))
+		{
+			line[j] = (p_buffer->buffer)[i];
+			i++;
+			j++;
+		}
+		p_buffer = p_buffer->next;
+	}
+	free_buffers(p_start);
+	return (line);
 }
