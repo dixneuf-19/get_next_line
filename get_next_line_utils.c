@@ -74,6 +74,7 @@ static void	save_plus(t_buff *p_plus, t_buff *p_last, char *line, ssize_t j)
 {
 	ssize_t		i;
 
+	i = 0;
 	while (i < p_last->length)
 	{
 		line[j] = (p_last->content)[i];
