@@ -52,7 +52,7 @@ char	*get_next_line(int fd)
 {
 	static t_buff	plus;
 
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	plus.next = NULL;
 	return (get_line(fd, &plus));
