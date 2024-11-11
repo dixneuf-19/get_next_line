@@ -12,30 +12,48 @@
 
 #include "get_next_line.h"
 
-static char	*get_line(int fd, t_buffer *p_surplus)
+void	check_plus(t_buff *p_plus)
 {
-	t_buffer	*p_buffer;
-	int			first;
+	ssize_t	i;
 
-	first = 0;
-	while (!(first++) || !(p_buffer->length))
+	p_plus->end = 0;
+	i = 0;
+	while (i < p_plus->length)
 	{
-		p_buffer = (t_buffer *)malloc(sizeof(t_buffer));
-		if (!p_buffer)
-			return (NULL);
-		p_buffer->length = read(fd, p_buffer->content, BUFFER_SIZE);
-		if (p_buffer->length == -1)
-			return (NULL);
-		link_buffer(p_surplus, p_buffer);
+		if ((p_plus->content)[i] == '\n')
+		{
+			p_plus->end = 1;
+			break ;
+		}
+		i++;
 	}
-	return (return_line(p_surplus));
 }
 
-char    *get_next_line(int fd)
+static char	*get_line(int fd, t_buff *p_plus)
 {
-    static t_buffer surplus;
+	t_buff	*p_buff;
+
+	p_buff = p_plus;
+	check_plus(p_plus);
+	while (!(p_buff->end))
+	{
+		p_buff = (t_buff *)malloc(sizeof(t_buff));
+		if (!p_buff)
+			return (NULL);
+		p_buff->length = read(fd, p_buff->content, BUFFER_SIZE);
+		if (p_buff->length == -1)
+			return (NULL);
+		link_check_buff(p_plus, p_buff);
+	}
+	return (return_line(p_plus));
+}
+
+char	*get_next_line(int fd)
+{
+	static t_buff	plus;
 
 	if (fd < 0)
 		return (NULL);
-	return (get_line(fd, &surplus));
+	plus.next = NULL;
+	return (get_line(fd, &plus));
 }

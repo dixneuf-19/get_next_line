@@ -17,19 +17,20 @@
 # include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 13
+#  define BUFFER_SIZE 42
 # endif
 
-typedef struct  s_buffer
+typedef struct s_buff
 {
 	char			content[BUFFER_SIZE];
-	ssize_t				length;
-	struct s_buffer	*next;
-}               t_buffer;
+	ssize_t			length;
+	char			end;
+	struct s_buff	*next;
+}				t_buff;
 
-char    *get_next_line(int fd);
+char	*get_next_line(int fd);
 
-void	link_buffer(t_buffer *p_surplus, t_buffer *p_buffer);
-char	*return_line(t_buffer *p_surplus);
+void	link_check_buff(t_buff *p_surplus, t_buff *p_buff);
+char	*return_line(t_buff *p_plus);
 
 #endif
