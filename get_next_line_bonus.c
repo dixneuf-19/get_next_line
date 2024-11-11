@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzary <mzary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -53,10 +53,10 @@ static char	*get_line(int fd, t_buff *p_plus)
 
 char	*get_next_line(int fd)
 {
-	static t_buff	plus;
+	static t_buff	plus[4096];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	plus.next = NULL;
-	return (get_line(fd, &plus));
+	plus[fd].next = NULL;
+	return (get_line(fd, plus + fd));
 }
