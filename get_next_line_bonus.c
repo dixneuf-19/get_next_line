@@ -73,9 +73,9 @@ static char	*get_line(int fd, t_buff *p_plus)
 
 char	*get_next_line(int fd)
 {
-	static t_buff	plus[13000];
+	static t_buff	plus[OPEN_MAX];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX)
 		return (NULL);
 	plus[fd].next = NULL;
 	return (get_line(fd, plus + fd));
