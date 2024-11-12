@@ -73,7 +73,7 @@ static char	*get_line(int fd, t_buff *p_plus)
 
 char	*get_next_line(int fd)
 {
-	static t_buff	plus[500];
+	static t_buff	plus[13000];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
