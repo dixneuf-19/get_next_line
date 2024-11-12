@@ -29,6 +29,21 @@ void	check_plus(t_buff *p_plus)
 	}
 }
 
+static void	set_zero(t_buff *p_plus)
+{
+	ssize_t	i;
+
+	i = 0;
+	while (i < BUFFER_SIZE)
+	{
+		(p_plus->content)[i] = 0;
+		i++;
+	}
+	p_plus->length = 0;
+	p_plus->end = 0;
+	p_plus->next = NULL;
+}
+
 static char	*get_line(int fd, t_buff *p_plus)
 {
 	t_buff	*p_buff;
@@ -46,6 +61,8 @@ static char	*get_line(int fd, t_buff *p_plus)
 		p_buff->length = read(fd, p_buff->content, BUFFER_SIZE);
 		if (p_buff->length == -1)
 		{
+			set_zero(p_plus);
+			free(p_buff);
 			free_buff(p_plus);
 			return (NULL);
 		}
