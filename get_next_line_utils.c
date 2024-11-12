@@ -107,19 +107,17 @@ char	*return_line(t_buff *p_plus)
 
 	length = line_length(p_plus);
 	line = (char *)malloc(sizeof(char) * (length + 1));
-	if (!line || !length)
-		return (NULL);
+	if (!line)
+		return (free_buff(p_plus), NULL);
+	else if (!length)
+		return (free(line), free_buff(p_plus), NULL);
 	j = 0;
 	p_buff = p_plus;
 	while (!(p_buff->end))
 	{
 		i = 0;
 		while (i < p_buff->length)
-		{
-			line[j] = (p_buff->content)[i];
-			i++;
-			j++;
-		}
+			line[j++] = (p_buff->content)[i++];
 		p_buff = p_buff->next;
 	}
 	return (save_plus(p_plus, p_buff, line, j), free_buff(p_plus), line);

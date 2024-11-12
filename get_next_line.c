@@ -33,13 +33,16 @@ static char	*get_line(int fd, t_buff *p_plus)
 {
 	t_buff	*p_buff;
 
-	p_buff = p_plus;
 	check_plus(p_plus);
+	p_buff = p_plus;
 	while (!(p_buff->end))
 	{
 		p_buff = (t_buff *)malloc(sizeof(t_buff));
 		if (!p_buff)
+		{
+			free_buff(p_plus);
 			return (NULL);
+		}
 		p_buff->length = read(fd, p_buff->content, BUFFER_SIZE);
 		if (p_buff->length == -1)
 		{
