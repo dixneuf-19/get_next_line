@@ -31,7 +31,7 @@ typedef struct s_buff
 
 char	*get_next_line(int fd);
 
-void	link_check_buff(t_buff *p_surplus, t_buff *p_buff);
+void	link_check_buff(t_buff *p_plus, t_buff *p_buff);
 char	*return_line(t_buff *p_plus);
 void	free_buff(t_buff *p_plus);
 
