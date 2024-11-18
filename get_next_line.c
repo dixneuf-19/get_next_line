@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-void	check_plus(t_buff *p_plus)
+static void	check_plus(t_buff *p_plus, fd)
 {
 	ssize_t	i;
 
@@ -22,7 +22,8 @@ void	check_plus(t_buff *p_plus)
 	{
 		if ((p_plus->content)[i] == '\n')
 		{
-			p_plus->end = 1;
+			if (read(fd, NULL, 0) == 0)
+				p_plus->end = 1;
 			break ;
 		}
 		i++;
@@ -33,7 +34,7 @@ static char	*get_line(int fd, t_buff *p_plus)
 {
 	t_buff	*p_buff;
 
-	check_plus(p_plus);
+	check_plus(p_plus, fd);
 	p_buff = p_plus;
 	while (!(p_buff->end))
 	{
