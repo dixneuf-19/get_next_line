@@ -22,8 +22,7 @@ static void	check_plus(t_buff *p_plus, fd)
 	{
 		if ((p_plus->content)[i] == '\n')
 		{
-			if (read(fd, NULL, 0) == 0)
-				p_plus->end = 1;
+			p_plus->end = 1;
 			break ;
 		}
 		i++;
@@ -61,7 +60,7 @@ char	*get_next_line(int fd)
 {
 	static t_buff	plus;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) == -1)
 		return (NULL);
 	plus.next = NULL;
 	return (get_line(fd, &plus));
