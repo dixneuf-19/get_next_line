@@ -61,7 +61,10 @@ char	*get_next_line(int fd)
 	static t_buff	plus;
 
 	if (read(fd, NULL, 0) == -1)
+	{
 		plus.length = 0;
+		return (NULL);
+	}
 	if (BUFFER_SIZE <= 0)
 		return (NULL);
 	plus.next = NULL;
