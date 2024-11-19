@@ -12,7 +12,7 @@
 
 #include "get_next_line_bonus.h"
 
-static void	check_plus(t_buff *p_plus, fd)
+static void	check_plus(t_buff *p_plus)
 {
 	ssize_t	i;
 
