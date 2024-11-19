@@ -62,7 +62,7 @@ char	*get_next_line(int fd)
 
 	if (read(fd, NULL, 0) == -1)
 		plus.length = 0;
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX)
+	if (BUFFER_SIZE <= 0 || fd >= OPEN_MAX)
 		return (NULL);
 	plus[fd].next = NULL;
 	return (get_line(fd, plus + fd));
