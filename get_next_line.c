@@ -33,7 +33,7 @@ static char	*get_line(int fd, t_buff *p_plus)
 {
 	t_buff	*p_buff;
 
-	check_plus(p_plus, fd);
+	check_plus(p_plus);
 	p_buff = p_plus;
 	while (!(p_buff->end))
 	{
