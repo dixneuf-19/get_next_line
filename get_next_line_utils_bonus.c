@@ -36,9 +36,9 @@ void	link_check_buff(t_buff *p_plus, t_buff *p_buff)
 		p_buff->end = 0;
 }
 
-static ssize_t	line_length(t_buff *p_plus)
+static size_t	line_length(t_buff *p_plus)
 {
-	ssize_t		t_length;
+	size_t		t_length;
 	t_buff		*p_buff;
 	ssize_t		i;
 
@@ -100,7 +100,7 @@ static void	save_plus(t_buff *p_plus, t_buff *p_last, char *line, ssize_t j)
 char	*return_line(t_buff *p_plus)
 {
 	t_buff		*p_buff;
-	ssize_t		length;
+	size_t		length;
 	char		*line;
 	ssize_t		i;
 	ssize_t		j;
